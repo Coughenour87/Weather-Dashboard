@@ -1,0 +1,33 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+h1 {
+    margin: 0;
+    color: #fff;
+    background-color: rgb(39, 37, 37);
+    text-align: center;
+    padding: .5rem;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin-left: .75rem;
+}
+
+input {
+    padding: .75rem;
+    margin-left: .75rem;
+
+    font-size: 1em;
+}
+
+button {
+    padding: .5rem;
+    background-color: rgba(24, 24, 201, 0.89);
+    color: cornsilk;
+    border-radius: 6px;
+    font-size: 1em;
+}

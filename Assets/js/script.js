@@ -1,60 +1,25 @@
-// * Display the following under current weather conditions:
-// var for city - global
-var cityName = "Charlotte";
+function displayWeather(city) {
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=a64814be519a737b6f2ebd5bcead034f"
 
-var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=a64814be519a737b6f2ebd5bcead034f"
-//  var city =  $("this").attr("data-name");
-
-//get URL for weather app
-// add city = activity 6 look are var movie line and query url
-
-
-$.ajax({
-    url: queryURL,
-    method: "GET"
-})
-    .then(function (response) {
-        console.log(response);
-        $("#content-main").append("<p>Date: ", + response.date + "</p>");
-        $("#content-main").append("<p>Icon: ", + response.icon + "</p>");
-        $("#content-main").append("<p>Icon: ", + response.temperature + "</p>");
-        $("#content-main").append("<p>Icon: ", + response.humidity + "</p>");
-        $("#content-main").append("<p>Icon: ", + response.windName + "</p>");
-
-        //.then function
-        //console.log(response)
-        //create an elemement that contains the city name 
-        var cityEl = $("<div>");
-        var cityEl = $("cityName");
-        //response.City
-        var cityEl = $("<p>" + response.City + "</p>")
-
-        
-        // var cityP = $("<p>" + response.City + "</p>")
-        // REPEAT with create and elemement that contains the Date, 
-        //Icon (visual representation of weather conditions)
-        //Temperature, 
-        //Humidity 
-        //Wind name 
-
-        //CAN create a container Div
-        //var newDiv = $("<div>");
-        var newDiv = $("<div>");
-        //append newDiv to content-main
-        //append city name to newDiv
-        //append Date name to newDiv
-        //append Icon name to newDiv
-        //append Temp name to newDiv
-        //append Humidity name to newDiv
-        //append Wind speed name to newDiv
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
+        var main = $("#content-main");
+        var newDiv = $("<div>").addClass("card mt-3 p-3");
+        var title = $("<h3>").text(response.name + " (" + moment().format('l') + ")");
+        var img = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png")
+        title.append(img)
+        var temp = $("<div>Temp: " + response.main.temp + "°F</div>");
+        var wind = $("<div>Wind Speed: " + (response.wind.speed * 1.15078).toFixed(2) + " knots </div>");
+        var hum = $("<div>Humidity: " + response.main.humidity + "%</div>");
+        newDiv.append(title, temp, wind, hum)
+        main.append(newDiv)
     });
-
-//click.event to fire off ajax call (bottom)
-$("city-search").on("click", function (event) {
-    event.preventDefault();
-
-    var weather = $("#city-search").val().trim();
-
-    
+}
+$("#search-button").on("click", function () {
+    var cityName = $("#city-search").val().trim();
+    displayWeather(cityName)
 })
+
 
